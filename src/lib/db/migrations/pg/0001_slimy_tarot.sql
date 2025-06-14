@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS mcp."mcp_server_binding" (
+CREATE TABLE IF NOT EXISTS "mcp_server_binding" (
 	"owner_type" text NOT NULL,
 	"owner_id" uuid NOT NULL,
 	"config" jsonb DEFAULT '{}'::jsonb NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS mcp."mcp_server_binding" (
 );
 --> statement-breakpoint
 DO $$ BEGIN
-  ALTER TABLE mcp."chat_message" ADD CONSTRAINT "chat_message_thread_id_chat_thread_id_fk" FOREIGN KEY ("thread_id") REFERENCES "mcp"."chat_thread"("id") ON DELETE no action ON UPDATE no action;
+  ALTER TABLE "chat_message" ADD CONSTRAINT "chat_message_thread_id_chat_thread_id_fk" FOREIGN KEY ("thread_id") REFERENCES "public"."chat_thread"("id") ON DELETE no action ON UPDATE no action;
   EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;

@@ -1,5 +1,5 @@
 DO $$ BEGIN
-ALTER TABLE mcp."user" ADD COLUMN "preferences" json DEFAULT '{}'::json;
+ALTER TABLE "user" ADD COLUMN "preferences" json DEFAULT '{}'::json;
 EXCEPTION
     WHEN duplicate_table THEN null;
 END $$;

@@ -33,8 +33,7 @@ export interface AppState {
   };
   voiceChat: {
     isOpen: boolean;
-    threadId?: string;
-    projectId?: string;
+    autoSaveConversation: boolean;
     options: {
       provider: string;
       providerOptions?: Record<string, any>;
@@ -65,6 +64,7 @@ const initialState: AppState = {
   },
   voiceChat: {
     isOpen: false,
+    autoSaveConversation: false,
     options: {
       provider: "openai",
       providerOptions: {
@@ -99,8 +99,6 @@ export const appStore = create<AppState & AppDispatch>()(
         voiceChat: {
           ...initialState.voiceChat,
           ...state.voiceChat,
-          threadId: undefined,
-          projectId: undefined,
           isOpen: false,
         },
       }),

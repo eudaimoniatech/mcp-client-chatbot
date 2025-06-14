@@ -95,17 +95,17 @@ export function useOpenAIVoiceChat(
 
   const [
     currentThreadId,
-    currentProjectId,
     allowedAppDefaultToolkit,
     allowedMcpServers,
     toolChoice,
+    currentProjectId,
   ] = appStore(
     useShallow((state) => [
-      state.voiceChat.threadId,
-      state.voiceChat.projectId,
+      state.currentThreadId,
       state.allowedAppDefaultToolkit,
       state.allowedMcpServers,
       state.toolChoice,
+      state.currentProjectId,
     ]),
   );
 

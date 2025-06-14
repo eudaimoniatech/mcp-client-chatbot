@@ -6,9 +6,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack --port 9000",
+    "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start --port 9000",
+    "start": "next start",
     "build:local": "cross-env NO_HTTPS='1' next build",
     "test": "vitest run",
     "test:watch": "vitest",

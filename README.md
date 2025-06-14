@@ -25,14 +25,14 @@ See the experience in action in the [preview](#preview) below!
     - [Quick Start (Local Version) 🚀](#quick-start-local-version-)
     - [Environment Variables](#environment-variables)
   - [📘 Guides](#-guides)
-    - [🔌 MCP Server Setup \& Tool Testing](#-mcp-server-setup--tool-testing)
-    - [🐳 Docker Hosting Guide](#-docker-hosting-guide)
-    - [▲ Vercel Hosting Guide](#-vercel-hosting-guide)
-    - [🎯 System Prompts \& Chat Customization](#-system-prompts--chat-customization)
-    - [🔐 OAuth Sign-In Setup](#-oauth-sign-in-setup)
+      - [🔌 MCP Server Setup \& Tool Testing](#-mcp-server-setup--tool-testing)
+      - [🐳 Docker Hosting Guide](#-docker-hosting-guide)
+      - [▲ Vercel Hosting Guide](#-vercel-hosting-guide)
+      - [🎯 System Prompts \& Chat Customization](#-system-prompts--chat-customization)
+      - [🔐 OAuth Sign-In Setup](#-oauth-sign-in-setup)
   - [💡 Tips](#-tips)
-    - [🧠 Agentic Chatbot with Project Instructions](#-agentic-chatbot-with-project-instructions)
-    - [💬 Temporary Chat Windows](#-temporary-chat-windows)
+      - [🧠 Agentic Chatbot with Project Instructions](#-agentic-chatbot-with-project-instructions)
+      - [💬 Temporary Chat Windows](#-temporary-chat-windows)
   - [🗺️ Roadmap](#️-roadmap)
   - [🙌 Contributing](#-contributing)
   - [💬 Join Our Discord](#-join-our-discord)
@@ -64,9 +64,13 @@ Finally, tell me how to install the package.
 
 ### 🎙️ Realtime Voice Assistant + MCP Tools
 
+
 <p align="center">
   <video src="https://github.com/user-attachments/assets/e2657b8c-ce0b-40dd-80b6-755324024973" width="100%" />
 </p>
+
+
+
 
 This demo showcases a **realtime voice-based chatbot assistant** built with OpenAI's new Realtime API — now extended with full **MCP tool integration**.
 Talk to the assistant naturally, and watch it execute tools in real time.
@@ -84,6 +88,7 @@ Switch between presets instantly with a click — perfect for organizing tools b
 ### 🧭 Tool Choice Mode
 
 <img width="1161" alt="tool-mode" src="https://github.com/user-attachments/assets/0988f8dd-8a37-4adf-84da-79c083917af9" />
+
 
 Control how tools are used in each chat with **Tool Choice Mode** — switch anytime with `⌘P`.
 
@@ -195,6 +200,7 @@ GITHUB_CLIENT_SECRET=
 
 Step-by-step setup guides for running and configuring MCP Client Chatbot.
 
+
 #### [🔌 MCP Server Setup & Tool Testing](./docs/tips-guides/mcp-server-setup-and-tool-testing.md)
 
 - How to add and configure MCP servers in your environment
@@ -216,7 +222,6 @@ Step-by-step setup guides for running and configuring MCP Client Chatbot.
 - Configure Google and GitHub OAuth for secure user login support.
 
 #### [Adding openAI like providers](docs/tips-guides/adding-openAI-like-providers.md)
-
 - Adding openAI like ai providers
 <br/>
 
@@ -259,13 +264,3 @@ Let's build it together 🚀
 [![Discord](https://img.shields.io/discord/1374047276074537103?label=Discord&logo=discord&color=5865F2)](https://discord.gg/gCRu69Upnp)
 
 Connect with the community, ask questions, and get support on our official Discord server!
-
- ```bash
-  git remote add upstream https://github.com/cgoinglove/mcp-client-chatbot.git
-
-  git fetch upstream
-
-  git branch -r
-
-  git checkout -b dev upstream/dev
- ```
