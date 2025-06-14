@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS "chat_message" (
+CREATE SCHEMA mcp;
+CREATE TABLE IF NOT EXISTS mcp."chat_message" (
 	"id" text PRIMARY KEY NOT NULL,
 	"thread_id" uuid NOT NULL,
 	"role" text NOT NULL,
@@ -9,15 +10,17 @@ CREATE TABLE IF NOT EXISTS "chat_message" (
 	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "chat_thread" (
+CREATE TABLE IF NOT EXISTS mcp."chat_thread" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" text NOT NULL,
 	"user_id" uuid NOT NULL,
 	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	"project_id" uuid
 );
+
+
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "project" (
+CREATE TABLE IF NOT EXISTS mcp."project" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"user_id" uuid NOT NULL,
@@ -26,7 +29,7 @@ CREATE TABLE IF NOT EXISTS "project" (
 	"updated_at" timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE IF NOT EXISTS mcp."user" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
@@ -39,14 +42,14 @@ CREATE TABLE IF NOT EXISTS "user" (
 --> statement-breakpoint
 
 DO $$ BEGIN	
-  ALTER TABLE "chat_thread" ADD CONSTRAINT "chat_thread_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
+  ALTER TABLE mcp."chat_thread" ADD CONSTRAINT "chat_thread_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "mcp"."user"("id") ON DELETE no action ON UPDATE no action;
   EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 
 DO $$ BEGIN
-  ALTER TABLE "project" ADD CONSTRAINT "project_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
+  ALTER TABLE mcp."project" ADD CONSTRAINT "project_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "mcp"."user"("id") ON DELETE no action ON UPDATE no action;
   EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;

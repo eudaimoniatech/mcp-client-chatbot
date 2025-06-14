@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "account" (
+CREATE TABLE IF NOT EXISTS mcp."account" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"account_id" text NOT NULL,
 	"provider_id" text NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS "account" (
 	"updated_at" timestamp NOT NULL
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "session" (
+CREATE TABLE IF NOT EXISTS mcp."session" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"expires_at" timestamp NOT NULL,
 	"token" text NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS "session" (
 	CONSTRAINT "session_token_unique" UNIQUE("token")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "verification" (
+CREATE TABLE IF NOT EXISTS mcp."verification" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"identifier" text NOT NULL,
 	"value" text NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS "verification" (
 );
 --> statement-breakpoint
 
-ALTER TABLE "user" ADD COLUMN IF NOT EXISTS "email_verified" boolean DEFAULT false NOT NULL;
+ALTER TABLE mcp."user" ADD COLUMN IF NOT EXISTS "email_verified" boolean DEFAULT false NOT NULL;
 --> statement-breakpoint
 DO $$
 BEGIN
@@ -47,18 +47,18 @@ BEGIN
           AND column_name='password'
           AND is_nullable='NO'
     ) THEN
-        ALTER TABLE "user" ALTER COLUMN "password" DROP NOT NULL;
+        ALTER TABLE mcp."user" ALTER COLUMN "password" DROP NOT NULL;
     END IF;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
-ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE mcp."account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "mcp"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
-ALTER TABLE "session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;
+ALTER TABLE mcp."session" ADD CONSTRAINT "session_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "mcp"."user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
