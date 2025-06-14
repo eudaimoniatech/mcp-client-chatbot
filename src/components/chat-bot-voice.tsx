@@ -99,9 +99,16 @@ const prependTools = [
 
 export function ChatBotVoice() {
   const t = useTranslations("Chat");
-  const [appStoreMutate, voiceChat, model] = appStore(
-    useShallow((state) => [state.mutate, state.voiceChat, state.chatModel]),
-  );
+  const [appStoreMutate, voiceChat, model, currentThreadId, currentProjectId] =
+    appStore(
+      useShallow((state) => [
+        state.mutate,
+        state.voiceChat,
+        state.chatModel,
+        state.currentThreadId,
+        state.currentProjectId,
+      ]),
+    );
 
   const [isClosing, setIsClosing] = useState(false);
   const startAudio = useRef<HTMLAudioElement>(null);
@@ -144,19 +151,19 @@ export function ChatBotVoice() {
     setIsClosing(true);
     await safe(() => stop());
     await safe(async () => {
-      if (!voiceChat.threadId) return;
+      if (!currentThreadId || !voiceChat.autoSaveConversation) return;
       const saveMessages = messages.filter(
         (v) => v.completed && isNotEmptyUIMessage(v),
       );
       if (saveMessages.length === 0) {
         return;
       }
-      await fetch(`/api/chat/${voiceChat.threadId}`, {
+      await fetch(`/api/chat/${currentThreadId}`, {
         method: "POST",
         body: JSON.stringify({
           messages: mergeConsecutiveMessages(saveMessages),
           chatModel: model,
-          projectId: voiceChat.projectId,
+          projectId: currentProjectId,
         }),
       });
 
@@ -165,8 +172,8 @@ export function ChatBotVoice() {
       if (isSaved) {
         nextTick().then(() => {
           mutate("threads");
-          router.push(`/chat/${voiceChat.threadId}`);
-          if (window.location.pathname === `/chat/${voiceChat.threadId}`) {
+          router.push(`/chat/${currentThreadId}`);
+          if (window.location.pathname === `/chat/${currentThreadId}`) {
             router.refresh();
           }
         });
@@ -179,7 +186,13 @@ export function ChatBotVoice() {
         isOpen: false,
       },
     });
-  }, [messages, voiceChat.threadId, voiceChat.projectId, model]);
+  }, [
+    messages,
+    currentProjectId,
+    model,
+    currentThreadId,
+    voiceChat.autoSaveConversation,
+  ]);
 
   const statusMessage = useMemo(() => {
     if (isLoading) {
@@ -262,8 +275,6 @@ export function ChatBotVoice() {
           voiceChat: {
             ...prev.voiceChat,
             isOpen: true,
-            threadId: undefined,
-            projectId: undefined,
           },
         }));
       }

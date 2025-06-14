@@ -80,8 +80,7 @@ export function AppHeader() {
                   voiceChat: {
                     ...state.voiceChat,
                     isOpen: true,
-                    threadId: undefined,
-                    projectId: undefined,
+                    autoSaveConversation: false,
                   },
                 }));
               }}
